@@ -1,0 +1,238 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+/* --- Master Layout System Configuration --- */
+body {
+    margin: 0;
+    background-color: #F8FAFC; /* Clean light gray canvas background */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Master Grid Grid Splitter */
+.app-container {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* Right Side Content Management Column */
+.main-content {
+    flex: 1;
+    margin-left: 260px; /* Leaves exact room for your fixed sidebar */
+    padding-top: 70px;   /* Leaves exact room for your fixed navbar */
+    padding-bottom: 60px; /* Leaves room for footer */
+    min-height: 100vh;
+    background-color: #F8FAFC;
+}
+
+/* --- Premium Stunning Sidebar Framework --- */
+.sidebar-wrapper {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: #ffffff !important;
+    border-right: 1px solid #F1F5F9 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 4px 0 24px rgba(15, 23, 42, 0.02); /* Ultra-soft premium depth shadow */
+}
+
+/* Brand Header */
+.sidebar-brand {
+    padding: 2rem 1.75rem;
+}
+.brand-logo-accent {
+    background: linear-gradient(135deg, #0A3B75 0%, #1E40AF 100%);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(10, 59, 117, 0.2);
+}
+
+/* Navigation Menu Items */
+.sidebar-nav {
+    padding: 0 1rem;
+    flex-grow: 1;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: #64748B !important; /* Soft slate color for unselected links */
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Interactive Hover States */
+.sidebar-link:hover {
+    background-color: #F8FAFC !important;
+    color: #0F172A !important;
+    transform: translateX(4px); /* Micro-interaction slide effect */
+}
+
+.sidebar-link i {
+    font-size: 1.15rem;
+    transition: transform 0.2s ease;
+}
+.sidebar-link:hover i {
+    transform: scale(1.1);
+}
+
+/* Stunning Active State Window */
+.sidebar-link.active {
+    background: linear-gradient(135deg, #0A3B75 0%, #0F4C91 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(10, 59, 117, 0.15);
+}
+.sidebar-link.active i {
+    color: #ffffff !important;
+}
+
+/* Premium Profile Card at Bottom */
+.sidebar-profile-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    margin: 1.5rem;
+    padding: 12px;
+    transition: border-color 0.2s ease;
+}
+.sidebar-profile-card:hover {
+    border-color: #CBD5E1;
+}
+
+/* --- Core Navbar Styling --- */
+.navbar-wrapper {
+    height: 70px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 260px;
+    z-index: 90;
+    background-color: #ffffff;
+}
+
+/* --- Core Footer Styling --- */
+.footer-wrapper {
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 260px;
+    z-index: 80;
+    background-color: #ffffff;
+}
+
+/* --- UI Cards Design --- */
+.custom-card {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Custom Subtle Gray Search Border Framework */
+.border-custom-gray {
+    border: 1px solid #CBD5E1 !important; /* Perfect slate-gray baseline border */
+    color: #334155;
+}
+
+.border-custom-gray::placeholder {
+    color: #94A3B8;
+}
+
+/* Custom Floating Glow State Interactivity */
+.border-custom-gray:focus {
+    background-color: #ffffff !important;
+    border-color: #0A3B75 !important; /* Changes to your MazaoSACCO Brand Deep Blue on active state */
+    box-shadow: 0 0 0 4px rgba(10, 59, 117, 0.08) !important; /* Soft depth blue ring shadow glow */
+    outline: none;
+}
+
+.hover-text-dark:hover {
+    color: #1E293B !important;
+}
+
+@media print {
+  /* Hide the sidebar, top navigation, and button controls */
+  .no-print, 
+  nav, 
+  .sidebar, 
+  .header-actions, 
+  .btn, 
+  input {
+    display: none !important;
+  }
+
+  /* Ensure the container and table take up the full page */
+  .container-fluid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
