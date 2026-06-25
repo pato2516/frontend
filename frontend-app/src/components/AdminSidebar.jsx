@@ -28,6 +28,7 @@ const AdminSidebar = () => {
     { name: 'Dividends', path: '/app/admin/dividends', icon: Percent },
     { name: 'Share Holders', path: '/app/admin/shareholders', icon: Share2 },
     { name: 'Reports', path: '/app/admin/reports', icon: BarChart3 },
+    { name: 'Settings', path: '/app/admin/settings', icon: Settings },
   ];
 
   return (
@@ -86,7 +87,7 @@ const AdminSidebar = () => {
       </aside>
 
       {/* Settings Modal */}
-      <SettingsModal show={showSettings} onClose={() => setShowSettings(false)} />
+      {/* <SettingsModal show={showSettings} onClose={() => setShowSettings(false)} /> */}
     </>
   );
 };

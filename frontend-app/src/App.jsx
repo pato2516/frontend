@@ -1,8 +1,11 @@
 // App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Mandatory styles for rendering popups
+
 import Layout from './components/Layout';
-import AdminLayout from './components/AdminLayout'; // Import your new AdminLayout
+import AdminLayout from './components/AdminLayout'; 
 import LandingPage from './views/LandingPage';
 import Dashboard from './views/Dashboard';
 import AdminDashboard from './views/AdminDashboard';
@@ -12,6 +15,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MemberManagement from './views/MemberManagement';
 import LoanApplications from './views/LoanApplications';
 import SavingView from './views/SavingView';
+import Transfers from './views/Transfers';
+import AdminSettings from './views/AdminSetting';
 
 export default function App() {
   return (
@@ -32,6 +37,8 @@ export default function App() {
           <Route path="members" element={<MemberManagement />} />
           <Route path="loan-applications" element={<LoanApplications />} />
           <Route path="saving-portfolios" element={<SavingView/>} />
+          <Route path="transfers" element={<Transfers />} />
+          <Route path="settings" element={<AdminSettings />} />
         </Route>
 
         {/* Member Protected Routes */}
@@ -46,6 +53,16 @@ export default function App() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
+      {/* Global Toast Configuration Host */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={2000} // Automatically fades away after 2 seconds
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+      />
     </BrowserRouter>
   );
 }
