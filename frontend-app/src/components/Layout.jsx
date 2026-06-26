@@ -48,21 +48,13 @@ export default function Layout() {
     { path: '/app/admin', label: 'Admin', icon: 'bi-shield-lock', adminOnly: true }
   ].filter(link => !link.adminOnly || userRole === 'admin');
 
-
-const handleLogout = () => {
-  // 1. Clear the token from storage
-  localStorage.removeItem("token");
-  
-  // 2. Clear any other user-related data if necessary
-  // localStorage.clear(); 
-
-  // 3. Redirect to login
-  window.location.href = "/login";
-};
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
   return (
-  <div className="d-flex" style={{ minHeight: '100vh', backgroundColor: darkMode ? '#0F172A' : '#F8FAFC',     color: darkMode ? '#F1F5F9' : '#0F172A', transition: 'all 0.3s ease' }}>
+    <div className="d-flex" style={{ minHeight: '100vh', backgroundColor: darkMode ? '#0F172A' : '#F8FAFC', color: darkMode ? '#F1F5F9' : '#0F172A', transition: 'all 0.3s ease' }}>
       
       {/* LEFT FIXED SIDEBAR CONTAINER */}
       <aside 
@@ -93,7 +85,7 @@ const handleLogout = () => {
                       : darkMode ? 'text-slate-400 text-secondary hover-bg-dark' : 'text-secondary hover-bg-light'
                   }`
                 }
-                style={{ fontSize: '0.92rem', color: darkMode && '#94A3B8' }}
+                style={{ fontSize: '0.92rem', color: darkMode ? '#94A3B8' : undefined }}
               >
                 <i className={`bi ${link.icon} fs-5`}></i>
                 {link.label}
@@ -104,19 +96,26 @@ const handleLogout = () => {
 
         {/* Footer User Avatar Identity Widget Badge */}
         <div 
-          className="p-3 border-top d-flex align-items-center gap-3" 
+          className="p-3 border-top" 
           style={{ borderColor: darkMode ? '#334155' : '#E2E8F0', backgroundColor: darkMode ? '#0F172A' : '#F8FAFC' }}
         >
-          
-            <div className="rounded-circle bg-primary text-white border-2 d-flex align-items-center justify-content-center fw-bold" style={{ width: '40px', height: '40px', fontSize: '0.9rem' }}>   
+          <div className="d-flex align-items-center gap-3">
+            <div className="rounded-circle bg-primary text-white border-2 d-flex align-items-center justify-content-center fw-bold" style={{ width: '40px', height: '40px', fontSize: '0.9rem', flexShrink: 0 }}>   
               AK
             </div>
-          
-          <div className="overflow-hidden flex-grow-1">
-            <span className={`fw-bold d-block text-truncate small ${darkMode ? 'text-white' : 'text-dark'}`}>Amara Kiprotich</span>
-            <span className="text-muted extra-small d-block" style={{ fontSize: '0.72rem' }}>Silver Member</span>
+            <div className="overflow-hidden flex-grow-1">
+              <span className={`fw-bold d-block text-truncate small ${darkMode ? 'text-white' : 'text-dark'}`}>Amara Kiprotich</span>
+              <span className="text-muted extra-small d-block" style={{ fontSize: '0.72rem' }}>Silver Member</span>
+            </div>
+            <button 
+              type="button" 
+              className="btn btn-link p-0 text-secondary shadow-none" 
+              onClick={() => setShowSettings(true)}
+              style={{ color: darkMode ? '#94A3B8' : '#64748B' }}
+            >
+              <i className="bi bi-gear-fill fs-5"></i>
+            </button>
           </div>
-            {/* ... inside your sidebar footer near the profile section ... */}
           <div className="d-flex align-items-center gap-2 mt-2">
             <button 
               onClick={handleLogout}
@@ -126,34 +125,25 @@ const handleLogout = () => {
               <i className="bi bi-box-arrow-right"></i> Logout
             </button>
           </div>
-
-          {/* Cog Icon to trigger the Settings modal directly */}
-          <button 
-            type="button" 
-            className="btn btn-link p-0 text-secondary" 
-            onClick={() => setShowSettings(true)}
-            style={{ color: darkMode ? '#94A3B8' : '#64748B' }}
-          >
-            <i className="bi bi-gear-fill fs-5"></i>
-          </button>
         </div>
       </aside>
 
       {/* RIGHT SIDE VIEW COMPONENT SCREEN VIEWPORT */}
-      <div className="w-100 h-100" style={{ paddingLeft: '260px' }}>
+      {/* Added d-flex flex-column to correctly establish footer sticking behavior */}
+      <div className="w-100 d-flex flex-column" style={{ paddingLeft: '260px', minHeight: '100vh' }}>
         
         {/* GLOBAL HEADER TOP BAR */}
         <header 
           className="sticky-top px-4 py-3 d-flex justify-content-between align-items-center border-bottom" 
           style={{ zIndex: 1020, backgroundColor: darkMode ? '#1E293B' : '#ffffff', borderColor: darkMode ? '#334155' : '#E2E8F0' }}
         >
-          <div className="position-relative" style={{ width: '320px' }}>
+          <div className="position-relative" style={{ maxWidth: '700px', width: '100%' }}>
             <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
             <input 
               type="text" 
               className={`form-control border-1 ps-5 py-2 rounded-pill small ${darkMode ? 'bg-slate-800 text-white' : 'bg-light bg-opacity-50'}`}
               placeholder="Search accounts or features..."
-              style={{ fontSize: '0.88rem', width: 700, backgroundColor: darkMode ? '#0F172A' : '#F1F5F9' }}
+              style={{ fontSize: '0.88rem', backgroundColor: darkMode ? '#0F172A' : '#F1F5F9' }}
             />
           </div>
 
@@ -168,15 +158,21 @@ const handleLogout = () => {
             </button>
 
             <div className="border-start ps-3 d-none d-sm-block" style={{ borderColor: darkMode ? '#334155' : '#E2E8F0' }}>
-              <span className="badge bg-secondary text-info fw-bold font-tahoma" style={{ borderRadius: 50 }}>UGX PORTAL ACTIVE</span>
+              <span className="badge bg-secondary text-info fw-bold" style={{ borderRadius: 50 }}>UGX PORTAL ACTIVE</span>
             </div>
           </div>
         </header>
 
         {/* COMPONENT OUTLET BODY WRAPPER FRAME */}
-        <main className="p-4 container-fluid" style={{ maxWidth: '1400px' }}>
+        {/* flex-grow-1 pushes downstream siblings (Footer) downward cleanly */}
+        <main className="p-4 container-fluid flex-grow-1" style={{ maxWidth: '1400px' }}>
           <Outlet context={{ darkMode }} />
         </main>
+
+        {/* REPOSITIONED COMPONENT FOOTER GRID ELEMENT */}
+        <div className="px-4 py-3 border-top mt-auto" style={{ borderColor: darkMode ? '#334155' : '#E2E8F0', backgroundColor: darkMode ? '#1E293B' : '#ffffff' }}>
+          <Footer />
+        </div>
       </div>
 
       {/* MODAL SYSTEM SETTINGS */}
@@ -216,7 +212,6 @@ const handleLogout = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Additional sections follow your original structure */}
                 </div>
                 <div className="modal-footer px-4 pb-4 pt-2 border-0 d-flex gap-2">
                   <button type="button" className={`btn w-100 py-2 fw-bold rounded-3 ${darkMode ? 'btn-secondary bg-slate-700 border-0' : 'btn-light border'}`} onClick={() => setShowSettings(false)}>Dismiss & Save</button>
@@ -226,9 +221,6 @@ const handleLogout = () => {
           </div>
         </>
       )}
-    <div className='mt-50'>
-      <Footer />
     </div>
-  </div>
   );
 }

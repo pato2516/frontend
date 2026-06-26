@@ -51,7 +51,7 @@ const AdminSidebar = () => {
               end={item.path === '/app/admin'}
               className={({ isActive }) =>
                 `nav-link d-flex align-items-center px-4 py-3 text-decoration-none ${
-                  isActive ? 'bg-warning text-dark fw-bold' : 'text-secondary hover-bg-dark'
+                  isActive ? 'bg-success text-light fw-bold' : 'text-secondary hover-bg-warning'
                 }`
               }
             >
